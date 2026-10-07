@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Document Data Extractor</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:820px;margin:32px auto;padding:0 16px;color:#222}
+h1{color:#1F3864;margin-bottom:4px} .sub{color:#666;margin-top:0}
+.card{border:1px solid #ddd;border-radius:10px;padding:18px;margin:16px 0}
+label{font-weight:600;display:block;margin:10px 0 4px}
+input[type=url],input[type=file]{width:100%;padding:8px;box-sizing:border-box}
+button{background:#1F3864;color:#fff;border:0;padding:10px 18px;border-radius:6px;cursor:pointer;margin-top:12px}
+.or{text-align:center;color:#888;margin:8px 0}
+.err{background:#fde8e8;color:#a40000;padding:10px;border-radius:6px}
+form.dl button{margin-right:8px}
+.tbl{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13px}th{background:#1F3864;color:#fff;text-align:left}td,th{border:1px solid #ddd;padding:6px;vertical-align:top}.note{color:#666;font-size:13px}
+pre{background:#f6f6f6;padding:12px;border-radius:6px;overflow:auto;max-height:320px;font-size:13px}
+.sec h3{margin:12px 0 4px}
+</style></head><body>
+<h1>Document Data Extractor</h1>
+<p class="sub">Upload a PDF (up to 10 MB) or paste a website link. Get clean XML.</p>
+<div class="card"><form method="post" enctype="multipart/form-data" onsubmit="this.querySelector('button').textContent='Extracting...'">
+<label>PDF file</label><input type="file" name="pdf" accept=".pdf">
+<div class="or">— or —</div>
+<label>Website link</label><input type="url" name="url" placeholder="https://books.toscrape.com">
+<button type="submit">Extract</button></form></div>
+{% if error %}<div class="err">{{ error }}</div>{% endif %}
+{% if xml %}
+<div class="card"><h2>Result: {{ source }}</h2>
+<p>{{ sections|length }} section(s) found.</p>
+<h3>Excel preview</h3>
+<div class="tbl"><table><tr><th>Section No</th><th>Section Title</th><th>Paragraph No</th><th>Text</th></tr>
+{% for n,title,k,text in rows[:15] %}<tr><td>{{ n }}</td><td>{{ title }}</td><td>{{ k }}</td><td>{{ text[:200] }}{% if text|length > 200 %}...{% endif %}</td></tr>
+{% endfor %}</table></div>
+{% if rows|length > 15 %}<p class="note">Showing first 15 of {{ rows|length }} rows. The full data is in the downloaded file.</p>{% endif %}
+<h3>XML output</h3><pre>{{ xml }}</pre>
+<form method="post" class="dl"><input type="hidden" name="xml" value="{{ xml }}">
+<button formaction="/download">Download XML</button>
+<button formaction="/download-excel">Download Excel</button></form></div>
+{% endif %}
+</body></html>

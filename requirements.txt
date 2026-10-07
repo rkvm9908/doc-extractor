@@ -1,0 +1,6 @@
+flask
+pdfplumber
+beautifulsoup4
+requests
+gunicorn
+openpyxl

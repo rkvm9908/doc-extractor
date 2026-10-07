@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Virtual environments
+doc-env/
+.venv/
+env/
+
+# Secrets / config (never upload API keys)
+.env
+*.env
+
+
+# Flask
+instance/
+
+# Uploaded and generated files
+uploads/
+*.xlsx
+*.xml
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
