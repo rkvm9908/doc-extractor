@@ -12,3 +12,7 @@ Build: `pip install -r requirements.txt` | Start: `gunicorn app:app`
 
 ## Limits
 Scanned (image) PDFs need OCR and are not supported yet.
+
+## 🌐 Live Demo
+
+🔗 **Live :** [Click Here](https://doc-extractor-a8e7.onrender.com/)
